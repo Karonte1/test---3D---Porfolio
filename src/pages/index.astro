@@ -9,7 +9,7 @@
     <title>LARI.DESIGN — Portfolio 3D</title>
     <style>
       :root {
-        --color-bg: #f4ecf7;
+        --color-bg: #dad5db;
         --color-pink: #ff2a85;
       }
 
@@ -67,8 +67,7 @@
         text-align: center;
       }
 
-      /* Estilo actualizado para la imagen central: más grande y sin fondo */
-      .central-image-container {
+   .central-image-container {
         margin-bottom: 30px;
         background: transparent; 
         box-shadow: none; 
@@ -76,13 +75,11 @@
       }
 
       .central-image-container img {
-        max-width: 500px;
+        max-width: 1000px;
         width: 100%;
         height: auto;
         display: block;
-        /* El truco definitivo para fondos blancos en imágenes (funciona en JPG y PNG) */
-        mix-blend-mode: multiply; 
-        filter: contrast(120%); /* Opcional: realza un poco más las letras si se ven claras */
+        /* Ya no necesitamos mix-blend-mode porque el PNG es transparente por sí mismo */
       }
 
       h1 {
@@ -91,7 +88,7 @@
         text-transform: uppercase;
         margin: 0 0 20px 0;
         font-weight: 900;
-        background-color: rgba(244, 236, 247, 0.7);
+        
         backdrop-filter: blur(4px);
         padding: 10px;
         border-radius: 4px;
@@ -142,12 +139,12 @@
       <section class="hero">
         <!-- Imagen central grande con ruta segura para GitHub Pages y carpeta img -->
         <div class="central-image-container">
-          <img src={`${import.meta.env.BASE_URL}img/hello2.png`} alt="Hello 2" />
+          <img src={`${import.meta.env.BASE_URL}img/hello3.png`} alt="Hello 3" />
         </div>
 
-        <h1>3D & <br/><span>Interactive</span></h1>
-        <p class="bio">
-          Portfolio interactivo con elementos 3D en cascada.
+        <h1><br/><span></span></h1>
+        <p class="">
+         
         </p>
       </section>
 
