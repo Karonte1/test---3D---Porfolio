@@ -173,26 +173,27 @@
       const fallingItems: FallingItem[] = [];
 
       // 1. CARGAR EL MODELO PRINCIPAL (HOLA)
-      loader.load(
-        `${import.meta.env.BASE_URL}hello2.glb`,
-        (gltf) => {
+loader.load(
+  `${baseUrl}hello2.glb`,
+  (gltf) => {
           holaModel = gltf.scene;
           const holaScale = 0.15; // Un poco más grande para que destaque
           holaModel.scale.set(holaScale, holaScale, holaScale);
           holaModel.position.set(0, 0, 0);
 
-          holaModel.traverse((child) => {
-            if ((child as THREE.Mesh).isMesh) {
-              const mesh = child as THREE.Mesh;
-              if (mesh.material) {
-                const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-                materials.forEach((mat) => {
-                  mat.transparent = true;
-                  mat.opacity = 1.0;
-                });
-              }
-            }
-          });
+holaModel.traverse((child) => {
+  if ((child as THREE.Mesh).isMesh) {
+    const mesh = child as THREE.Mesh;
+    if (mesh.material) {
+      // Clonar el material evita que fallen las transparencias compartidas
+      mesh.material = (mesh.material as THREE.Material).clone();
+      const mat = mesh.material as THREE.MeshStandardMaterial;
+      mat.transparent = true;
+      mat.opacity = 1.0;
+      mat.needsUpdate = true;
+    }
+  }
+});
 
           scene.add(holaModel);
         },
@@ -201,10 +202,12 @@
       );
 
       // 2. CARGAR LOS 6 ARCHIVOS DE CHARMS INDIVIDUALMENTE (A ESCALA GRANDE)
+const baseUrl = import.meta.env.BASE_URL;
+
 const charmFiles = [
     'charms1.glb', 'charms2.glb', 'charms3.glb',
     'charms4.glb', 'charms5.glb', 'charms6.glb'
-].map(file => `${import.meta.env.BASE_URL}${file}`); 
+].map(file => `${baseUrl}${file}`); 
 
       charmFiles.forEach((file) => {
         loader.load(
